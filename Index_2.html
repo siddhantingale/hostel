@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Nest</title>
+  <link rel="stylesheet" href="style2.css" />
+</head>
+<body>
+  <header>
+    <section class="navsection">
+      <div class="logo">
+        <h1>Student Nest</h1>
+      </div>
+    </section>
+    <main>
+      <div class="form-container">
+        <div class="login-container">
+          <h2>Student Login</h2>
+          <div id="student-login-form">
+            <form id="login-form">
+              <input type="email" id="login-email" placeholder="Email Address" required />
+              <input type="password" id="login-password" placeholder="Password" required />
+              <input type="submit" value="Login" />
+            </form>
+            <p>Don't have an account? <a href="#" id="show-student-signup">Sign Up</a></p>
+          </div>
+
+          <div id="student-signup-form" style="display: none;">
+            <h2>Student Sign Up</h2>
+            <form id="signup-form">
+              <input type="text" name="fullname" id="signup-name" placeholder="Full Name" required />
+              <input type="text" name="address" id="signup-address" placeholder="Address" required />
+              <input type="text" name="hostelname" id="signup-hostel" placeholder="Hostel Name" required />
+              <input type="tel" name="mobileno" id="signup-mobile" placeholder="Mobile No" required />
+              <input type="email" id="signup-email" placeholder="Email ID" required />
+              <input type="tel" name="parentmobileno" id="signup-parent" placeholder="Parent Mobile No" required />
+              <input type="password" id="signup-password" placeholder="Password" required />
+              <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+              <input type="submit" value="Sign Up" />
+            </form>
+            <p>Already have an account? <a href="#" id="show-student-login">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </header>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const studentSignupLink = document.getElementById("show-student-signup");
+      const studentLoginLink = document.getElementById("show-student-login");
+      const studentLoginForm = document.getElementById("student-login-form");
+      const studentSignupForm = document.getElementById("student-signup-form");
+
+      studentSignupLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        studentLoginForm.style.display = "none";
+        studentSignupForm.style.display = "block";
+      });
+
+      studentLoginLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        studentSignupForm.style.display = "none";
+        studentLoginForm.style.display = "block";
+      });
+
+      const signupForm = document.getElementById("signup-form");
+      signupForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("signup-name").value;
+        const email = document.getElementById("signup-email").value;
+        const mobile = document.getElementById("signup-mobile").value;
+        const password = document.getElementById("signup-password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+
+        if (password !== confirmPassword) {
+          alert("Passwords do not match.");
+          return;
+        }
+
+        const userData = {
+          name,
+          email,
+          mobile,
+          password
+        };
+
+        localStorage.setItem("studentProfile", JSON.stringify(userData));
+
+        alert("Signup successful! Please login now.");
+        signupForm.reset();
+        studentSignupForm.style.display = "none";
+        studentLoginForm.style.display = "block";
+      });
+
+      const loginForm = document.getElementById("login-form");
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const loginEmail = document.getElementById("login-email").value;
+        const loginPassword = document.getElementById("login-password").value;
+
+        const storedData = JSON.parse(localStorage.getItem("studentProfile"));
+
+        if (storedData && loginEmail === storedData.email && loginPassword === storedData.password) {
+          alert("Login successful!");
+          window.location.href = "student_profile.html";
+        } else {
+          alert("Invalid email or password.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

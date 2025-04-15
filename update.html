@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        /* Add a background image for the entire page */
+        body {
+            background: url('img1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        .heading{
+
+            align-items: center;
+            text-align: center;
+        }
+        .updates-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .update-box {
+            width: 400px;
+            background-color: #ebd172;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            margin-bottom: 20px; /* Spacing between boxes */
+        }
+
+        .update-box h3 {
+            font-size: 1.8rem; /* Larger font for Name */
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .update-box p {
+            font-size: 1.4rem; /* Larger font for other fields */
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        /* Button Styling */
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            background-color: #007bff; /* Blue color for buttons */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin: 0 10px; /* Spacing between buttons */
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-building"></i> HostelSys
+        </a>
+    </header> -->
+
+    <section>
+        <h1 class="heading">Admin Contact Information</h1>
+        <div class="updates-container" id="updatesContainer">
+            <!-- Contact information will be displayed here -->
+        </div>
+        <div class="button-container">
+            <button id="updateButton">Update</button>
+            <button id="backButton">Back</button>
+        </div>
+    </section>
+
+    <script>
+        // Retrieve contact information from localStorage
+        window.addEventListener('load', function() {
+            const savedData = localStorage.getItem('adminContact');
+            const updatesContainer = document.getElementById('updatesContainer');
+
+            if (savedData) {
+                const contactInfo = JSON.parse(savedData);
+
+                // Create a box to display contact information
+                const contactBox = document.createElement('div');
+                contactBox.classList.add('update-box');
+                contactBox.innerHTML = `
+                    <h3>${contactInfo.name}</h3>
+                    <p><strong>Phone:</strong> ${contactInfo.phone}</p>
+                    <p><strong>Email:</strong> ${contactInfo.email}</p>
+                    <p><strong>Office Hours:</strong> ${contactInfo.hours}</p>
+                    <p><strong>Location:</strong> ${contactInfo.location}</p>
+                `;
+                updatesContainer.appendChild(contactBox);
+            } else {
+                // Show message if no contact information is available
+                updatesContainer.innerHTML = '<p style="font-size: 1.4rem; color: #888;">No contact information available.</p>';
+            }
+        });
+
+        // Button Actions
+        document.getElementById('updateButton').addEventListener('click', function() {
+            // Navigate to the contact.html page
+            window.location.href = 'contact.html';
+        });
+
+        document.getElementById('backButton').addEventListener('click', function() {
+            // Navigate back to the index.html page
+            window.location.href = 'Dashboard.html';
+        });
+    </script>
+</body>
+</html>

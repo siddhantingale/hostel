@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Received Messages</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .message-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00796b;
+    }
+
+    .message {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #00796b;
+      border-radius: 8px;
+      background-color: #e0f7fa;
+      position: relative;
+    }
+
+    .message h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #00796b;
+    }
+
+    .message p {
+      font-size: 16px;
+      color: #004d40;
+    }
+
+    .message span {
+      font-size: 14px;
+      color: #00796b;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    .delete-btn:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+
+<div class="message-container">
+  <h2>Received Messages</h2>
+  <div id="receivedMessages"></div>
+</div>
+
+<script>
+    localStorage.setItem('studentName', studentName); // Store the student name
+
+  // This function will run when the page loads to load received messages
+  function loadReceivedMessages() {
+    const studentName = localStorage.getItem('studentName'); // Get student name from localStorage (assumed it's set at login)
+    if (!studentName) {
+      alert("Please log in first.");
+      return;
+    }
+
+    const studentKey = studentName.toLowerCase().replace(/\s+/g, '');  // Normalize the student name
+    const studentData = JSON.parse(localStorage.getItem(studentKey));
+    const messagesDiv = document.getElementById("receivedMessages");
+    messagesDiv.innerHTML = "<h3>Messages</h3>";
+
+    // Check if the student has messages
+    if (studentData && studentData.messages && studentData.messages.length > 0) {
+      studentData.messages.forEach((msg, index) => {
+        const messageEl = document.createElement("div");
+        messageEl.classList.add("message");
+        messageEl.innerHTML = `
+          <h3>Subject: ${msg.subject}</h3>
+          <p>${msg.body}</p>
+          <span>From: ${msg.from}</span>
+          <span>Time: ${msg.timestamp}</span>
+          <button class="delete-btn" onclick="deleteMessage('${studentKey}', ${index})">Delete</button>
+        `;
+        messagesDiv.appendChild(messageEl);
+      });
+    } else {
+      messagesDiv.innerHTML += "<p>No messages yet.</p>";
+    }
+  }
+
+  // This function will delete a message and update localStorage
+  function deleteMessage(studentKey, messageIndex) {
+    let studentData = JSON.parse(localStorage.getItem(studentKey));
+
+    if (!studentData || !studentData.messages || studentData.messages.length <= messageIndex) {
+      alert("Message not found.");
+      return;
+    }
+
+    // Remove the message from the array
+    studentData.messages.splice(messageIndex, 1);
+
+    // Save the updated student data back to localStorage
+    localStorage.setItem(studentKey, JSON.stringify(studentData));
+
+    // Reload the messages after deletion
+    loadReceivedMessages();
+  }
+
+  // Run the function on page load
+  window.onload = loadReceivedMessages;
+</script>
+
+</body>
+</html>

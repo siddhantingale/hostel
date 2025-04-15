@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Contact Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Update Contact Information</h1>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="adminName"><i class="fas fa-user"></i> Admin Name</label>
+                <input type="text" id="adminName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="adminPhone"><i class="fas fa-phone"></i> Contact Number</label>
+                <input type="tel" id="adminPhone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="adminEmail"><i class="fas fa-envelope"></i> Email</label>
+                <input type="email" id="adminEmail" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="officeHours"><i class="fas fa-clock"></i> Office Hours</label>
+                <textarea id="officeHours" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="officeLocation"><i class="fas fa-map-marker-alt"></i> Office Location</label>
+                <textarea id="officeLocation" required></textarea>
+            </div>
+            
+            <button type="submit">Update Information</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const contactInfo = {
+                name: document.getElementById('adminName').value,
+                phone: document.getElementById('adminPhone').value,
+                email: document.getElementById('adminEmail').value,
+                hours: document.getElementById('officeHours').value,
+                location: document.getElementById('officeLocation').value
+            };
+            
+            // Save contact information in localStorage
+            localStorage.setItem('adminContact', JSON.stringify(contactInfo));
+            
+            // Alert user about success
+            alert('Contact information updated successfully!');
+
+            // Redirect to update.html
+            window.location.href = 'update.html';
+        });
+        
+        // Load existing data if available
+        window.addEventListener('load', function() {
+            const savedData = localStorage.getItem('adminContact');
+            if (savedData) {
+                const contactInfo = JSON.parse(savedData);
+                document.getElementById('adminName').value = contactInfo.name;
+                document.getElementById('adminPhone').value = contactInfo.phone;
+                document.getElementById('adminEmail').value = contactInfo.email;
+                document.getElementById('officeHours').value = contactInfo.hours;
+                document.getElementById('officeLocation').value = contactInfo.location;
+            }
+        });
+    </script>
+</body>
+</html>

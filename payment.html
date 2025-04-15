@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Gateway</title>
+  <link rel="stylesheet" href="payment.css" />
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <h2>Choose Payment Method</h2>
+    
+    <div class="tab-buttons">
+      <button id="cardTab" class="active">Pay with Card</button>
+      <button id="qrTab">Pay with QR Code</button>
+    </div>
+
+    <!-- Card Payment Form -->
+    <form id="card-form" class="payment-form">
+      <label for="card-number">Card Number</label>
+      <input type="text" id="card-number" placeholder="Enter card number" required />
+
+      <label for="card-name">Cardholder Name</label>
+      <input type="text" id="card-name" placeholder="Enter your name" required />
+
+      <div class="row">
+        <div>
+          <label for="expiry">Expiry</label>
+          <input type="text" id="expiry" placeholder="MM/YY" required />
+        </div>
+        <div>
+          <label for="cvv">CVV</label>
+          <input type="password" id="cvv" placeholder="Enter password" required />
+        </div>
+      </div>
+
+      <button type="submit">Pay Now</button>
+    </form>
+
+    <!-- QR Payment Section -->
+    <div id="qr-section" class="payment-form hidden">
+      <p>Scan this QR code to complete your payment:</p>
+      <img src="payment.jpg" alt="Admin QR Code" class="qr-image" />
+    </div>
+
+    <div id="confirmation" class="hidden">Payment Successful! 🎉</div>
+  </div>
+
+  <script>
+    // Handle tab switching
+    const cardTab = document.getElementById('cardTab');
+    const qrTab = document.getElementById('qrTab');
+    const cardForm = document.getElementById('card-form');
+    const qrSection = document.getElementById('qr-section');
+    const confirmation = document.getElementById('confirmation');
+
+    cardTab.addEventListener('click', () => {
+      cardTab.classList.add('active');
+      qrTab.classList.remove('active');
+      cardForm.classList.remove('hidden');
+      qrSection.classList.add('hidden');
+      confirmation.classList.add('hidden');
+    });
+
+    qrTab.addEventListener('click', () => {
+      qrTab.classList.add('active');
+      cardTab.classList.remove('active');
+      cardForm.classList.add('hidden');
+      qrSection.classList.remove('hidden');
+      confirmation.classList.add('hidden');
+    });
+
+    // Simulate card form submission
+    cardForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      setTimeout(() => {
+        confirmation.classList.remove('hidden');
+        cardForm.reset();
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

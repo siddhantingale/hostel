@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #e0f7fa, #f0ffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .contact-form {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .contact-form h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00796b;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #b2ebf2;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: #00bcd4;
+      outline: none;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .contact-form button {
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background: linear-gradient(to right, #11998e, #38ef7d);
+    }
+
+    @media (max-width: 600px) {
+      .contact-form {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="contact-form">
+  <h2>Contact Admin</h2>
+  <input type="text" id="studentName" placeholder="Your Name" required>
+  <input type="email" id="studentEmail" placeholder="Your Email" required>
+  <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+  <button onclick="sendMessage()">Send Message</button>
+</div>
+
+<script>
+  function sendMessage() {
+    const name = document.getElementById('studentName').value.trim();
+    const email = document.getElementById('studentEmail').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !message) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    const newMessage = {
+      name,
+      email,
+      message,
+      timestamp: new Date().toLocaleString()
+    };
+
+    let messages = JSON.parse(localStorage.getItem("adminNotifications")) || [];
+    messages.push(newMessage);
+    localStorage.setItem("adminNotifications", JSON.stringify(messages));
+
+    alert("Message sent to Admin!");
+    document.getElementById('studentName').value = '';
+    document.getElementById('studentEmail').value = '';
+    document.getElementById('message').value = '';
+  }
+</script>
+
+</body>
+</html>

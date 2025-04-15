@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hostel Management System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="dash_style.css">
+  <style>
+    /* Style for admin button - unchanged */
+    .admin-text-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0;
+      margin: 10px 0;
+      color: #ff0000;
+      font-family: inherit;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .admin-text-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Style for tenant button */
+    .tenant-text-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0;
+      margin: 10px 0;
+      color: #ff0000; /* Default tenant button color */
+      font-family: inherit;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .tenant-text-btn:hover {
+      text-decoration: underline;
+    }
+    
+    /* Style for feedback button */
+    .feedback-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0;
+      margin: 10px 0;
+      color: inherit; /* Retains inherited color */
+      font-family: inherit;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .feedback-btn:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <a href="#" class="logo">
+      <i class="fas fa-building"></i> HostelSys
+    </a>
+
+    <nav class="navbar">
+      <ul>
+        <li><a href="Index.html" class="active">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <!-- <li><a href="feedback.html">Feedback</a></li> -->
+      </ul>
+    </nav>
+
+    <div class="fas fa-bars"></div>
+  </header>
+
+  <!-- Home Section -->
+  <section class="home" id="home">
+    <div class="content">
+      <h1>Hostel Management System</h1>
+      
+      <div class="why-choose">
+        <h2>Why Choose Our System?</h2>
+        <ul>
+          <li><i class="fas fa-check-circle"></i> Secure & Automated Room Allocation</li>
+          <li><i class="fas fa-check-circle"></i> Easy Payment & Fee Management</li>
+          <li><i class="fas fa-check-circle"></i> Real-time Attendance Tracking</li>
+          <li><i class="fas fa-check-circle"></i> Direct Communication with Admin</li>
+        </ul>
+      </div>
+
+      <a href="#discover"><button>Discover More</button></a>
+    </div>
+
+    <div class="box-container">
+      <!-- Admin Section - Modified -->
+      <div class="box">
+        <i class="fas fa-user-shield"></i>
+        <h3>
+          <button class="admin-text-btn" onclick="window.location.href='login.html'" style="background: none; border: none; cursor: pointer; font: inherit; color: inherit;">
+            Admin
+          </button>
+        </h3>
+        <p>Manage all aspects of the hostel, including tenant details, room assignments, finances, and system settings.</p>
+      </div>
+
+      <!-- Tenant Section - Modified -->
+      <div class="box">
+        <i class="fas fa-user"></i>
+        <h3>
+          <button class="tenant-text-btn" onclick="window.location.href='Index_2.html'" style="background: none; border: none; cursor: pointer; font: inherit; color: inherit;">
+            Tenant
+          </button>
+        </h3>
+        <p>View personal room details, bookings, payments, and provide feedback.</p>
+      </div>
+
+      <!-- Feedback Section - Modified -->
+      <div class="box">
+        <i class="fas fa-comments"></i>
+        <h3>
+          <button class="feedback-btn" onclick="window.location.href='feedback.html'" style="background: none; border: none; cursor: pointer; font: inherit; color: inherit;">
+            Feedback
+          </button>
+        </h3>
+        <p>Share your experience and suggestions to help us improve our services.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Discover More Section -->
+  <section class="discover-more" id="discover">
+    <h2 class="heading">Discover More</h2>
+    <p class="title">Explore new features and insights</p>
+
+    <div class="row">
+      <div class="content">
+        <h3>Why Choose Us?</h3>
+        <p>We provide top-notch services that make your experience seamless and engaging.</p>
+        <ul>
+          <li><i class="fas fa-check-circle"></i> High-quality solutions</li>
+          <li><i class="fas fa-check-circle"></i> Reliable support team</li>
+          <li><i class="fas fa-check-circle"></i> User-friendly design</li>
+        </ul>
+      </div>
+      <div class="image">
+        <img src="discover.jpeg" alt="Discover More">
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h1 class="heading">About Us</h1>
+    <h3 class="title">Fair & Transparent Hostel Management</h3>
+    <div class="row">
+      <div class="content">
+        <h3>Commitment to Transparency</h3>
+        <p>Our system ensures fairness and accountability for both hostel administrators and residents. We provide an unbiased platform that fosters trust and efficiency.</p>
+        <a href="#"><button>Learn More</button></a>
+      </div>
+
+      <div class="image">
+        <img src="img1.jpg" alt="Hostel">
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Notifications</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f0f0;
+      padding: 40px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .message {
+      background: #ffffff;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border-left: 5px solid #0077ff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .message h4 {
+      margin-bottom: 5px;
+      color: #005dc1;
+    }
+    .message small {
+      color: #888;
+    }
+    .message p {
+      margin-top: 10px;
+      color: #444;
+    }
+    .delete-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .delete-btn:hover {
+      background-color: #e60000;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Admin Notifications</h2>
+  <div id="messagesContainer"></div>
+</div>
+
+<script>
+  function loadMessages() {
+    const container = document.getElementById('messagesContainer');
+    const notifications = JSON.parse(localStorage.getItem("adminNotifications")) || [];
+
+    container.innerHTML = ""; // Clear old content
+
+    if (notifications.length === 0) {
+      container.innerHTML = "<p>No messages yet.</p>";
+    } else {
+      notifications.reverse().forEach((msg, index) => {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.innerHTML = `
+          <h4>${msg.name} (${msg.email})</h4>
+          <small>${msg.timestamp}</small>
+          <p>${msg.message}</p>
+          <button class="delete-btn" onclick="deleteMessage(${notifications.length - 1 - index})">Delete</button>
+        `;
+        container.appendChild(messageDiv);
+      });
+    }
+  }
+
+  function deleteMessage(index) {
+    let notifications = JSON.parse(localStorage.getItem("adminNotifications")) || [];
+    notifications.splice(index, 1);
+    localStorage.setItem("adminNotifications", JSON.stringify(notifications));
+    loadMessages(); // Refresh the list
+  }
+
+  // Load messages on page load
+  window.onload = loadMessages;
+</script>
+</body>
+</html>

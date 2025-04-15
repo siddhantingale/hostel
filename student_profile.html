@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rent Manager</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #e0f7fa, #f0ffff);
+    }
+
+    header {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .navsection {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      flex-wrap: wrap;
+    }
+
+    .logo h1 {
+        
+      font-size: 2rem;
+      font-weight: bold;
+      animation: slideIn 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(0); }
+      to { transform: translateX(10px); }
+    }
+
+    .navigation {
+      display: flex;
+      gap: 25px;
+    }
+
+    .navigation a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .navigation a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #fff;
+      transition: 0.3s ease-in-out;
+    }
+
+    .navigation a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .vertical-navbar {
+      width: 280px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .vertical-navbar img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .vertical-navbar label {
+      display: inline-block;
+      color: #000000;
+      font-weight: bold;
+      background-color: #60df73ab;
+      padding: 10px 15px;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-bottom: 15px;
+      margin-top: 20px;
+      
+    }
+
+    .vertical-navbar input[type="file"] {
+      display: none;
+    }
+
+    .vertical-navbar a {
+      display: block;
+      text-decoration: none;
+      width: auto;
+      background: linear-gradient(to right, #1d2ec158, #185a9d);
+      color: #f4f6f6;
+      padding: 8px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      margin-top: 60px;
+      transition: background-color 0.3s ease;
+    }
+
+    .id-2 {
+      flex-grow: 1;
+      max-width: 500px;
+      background: rgb(255, 254, 254);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.08);
+    }
+
+    .profile-card h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    .profile-field {
+      margin-bottom: 20px;
+    }
+
+    .profile-field label {
+      font-weight: 600;
+      color: #444;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .profile-field input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border 0.3s;
+    }
+
+    .profile-field input:focus {
+      border-color: #0072ff;
+      outline: none;
+    }
+
+    .profile-field input:disabled {
+      background-color: #f0f0f0;
+      cursor: not-allowed;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #0072ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #0056cc;
+    }
+
+    @media screen and (max-width: 768px) {
+      .navsection {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .navigation {
+        margin-top: 15px;
+        gap: 15px;
+      }
+
+      .vertical-navbar {
+        width: 90%;
+      }
+
+      .id-2 {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <section class="navsection">
+    <div class="logo"><h1>Profile</h1></div>
+    <nav class="navigation">
+      <a href="#">Home</a>
+      <a href="message_receive.html">Message</a>
+      <a href="contact_student.html">Contact</a>
+    </nav>
+  </section>
+
+  <main>
+    <div class="vertical-navbar">
+        <img src="img/1.1.jpg" id="profile-pic">
+        <label for="input-file">Upload Image</label>
+        <input type="file" accept="image/jpg, image/png" id="input-file">
+        <a href="Payment_student.html">Payment</a>
+        <a href="contact_student.html">Contact</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+      
+
+    <div class="id-2">
+      <div class="profile-card">
+        <h2>Student Profile</h2>
+        <div class="profile-field">
+          <label for="admin1Name">Name</label>
+          <input type="text" id="admin1Name">
+        </div>
+        <div class="profile-field">
+          <label for="admin1Email">Email</label>
+          <input type="email" id="admin1Email">
+        </div>
+        <div class="profile-field">
+          <label for="admin1Phone">Phone Number</label>
+          <input type="tel" id="admin1Phone">
+        </div>
+        <div class="profile-field">
+          <label for="admin1Password">Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="admin1Password">
+            <span class="toggle-password" onclick="toggleVisibility('admin1Password', this)">👁️</span>
+          </div>
+        </div>
+        <div class="profile-field">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="confirmPassword">
+            <span class="toggle-password" onclick="toggleVisibility('confirmPassword', this)">👁️</span>
+          </div>
+        </div>
+        <button class="btn" onclick="toggleEdit()">Edit Profile</button>
+      </div>
+    </div>
+  </main>
+</header>
+
+<script>
+  let Profilepic = document.getElementById("profile-pic");
+  let inputFile = document.getElementById("input-file");
+  const localStorageKey = 'profileImage';
+
+  function loadSavedImage() {
+    const savedImage = localStorage.getItem(localStorageKey);
+    if (savedImage) {
+      Profilepic.src = savedImage;
+    }
+  }
+
+  inputFile.onchange = function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        Profilepic.src = e.target.result;
+        localStorage.setItem(localStorageKey, e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  function loadProfile() {
+    const storedData = localStorage.getItem("studentProfile");
+    if (storedData) {
+      const user = JSON.parse(storedData);
+      document.getElementById('admin1Name').value = user.name || '';
+      document.getElementById('admin1Email').value = user.email || '';
+      document.getElementById('admin1Phone').value = user.mobile || '';
+      document.getElementById('admin1Password').value = user.password || '';
+      document.getElementById('confirmPassword').value = user.password || '';
+    }
+
+    document.querySelectorAll('.profile-field input').forEach(input => input.disabled = true);
+  }
+
+  let isEditable = false;
+
+  function toggleEdit() {
+    const fields = document.querySelectorAll('.profile-field input');
+    const btn = document.querySelector('.btn');
+    isEditable = !isEditable;
+
+    fields.forEach(input => input.disabled = !isEditable);
+
+    if (!isEditable) {
+      const email = document.getElementById('admin1Email').value;
+      const password = document.getElementById('admin1Password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (!email.includes("@")) {
+        alert("Invalid Email: '@' symbol missing!");
+        isEditable = true;
+        return;
+      }
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        isEditable = true;
+        return;
+      }
+
+      const updatedData = {
+        name: document.getElementById('admin1Name').value,
+        email,
+        mobile: document.getElementById('admin1Phone').value,
+        password
+      };
+
+      localStorage.setItem("studentProfile", JSON.stringify(updatedData));
+      alert("Profile updated successfully!");
+      btn.textContent = "Edit Profile";
+    } else {
+      btn.textContent = "Save Changes";
+    }
+  }
+
+  function toggleVisibility(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+      input.type = "text";
+      icon.textContent = "🙈";
+    } else {
+      input.type = "password";
+      icon.textContent = "👁️";
+    }
+  }
+
+  window.onload = function () {
+    loadSavedImage();
+    loadProfile();
+  };
+  function logout() {
+    const confirmLogout = confirm("Are you sure you want to logout?");
+    if (confirmLogout) {
+      // Optional: Remove only specific items, or clear all
+      // localStorage.removeItem("studentProfile");
+      // localStorage.removeItem("profileImage");
+  
+      // Or clear everything
+      localStorage.clear();
+  
+      // Redirect to Dashboard
+      window.location.href = "Index.html";
+    }
+
+    
+  }
+  
+  
+</script>
+
+</body>
+</html>

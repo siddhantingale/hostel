@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Manager</title>
+    <style>
+        /* ... (Your existing CSS styles) ... */
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        header{
+           width: 100%;
+           height: 100vh;
+           overflow: hidden;
+        }
+        .navsection{
+            height: 20vh;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            background-image: linear-gradient(to top,#fff 80%,#c3f5ff 20%);
+
+        }
+        .logo{
+            width: 40%;
+            color: #fff;
+            background-image: linear-gradient(#e19bba 20%,#eb620c 80%);
+            padding-left: 100px;
+        }
+        .logo h1{
+            text-transform: uppercase;
+            font-size: 1.6rem;
+            animation: aage 3s linear infinite alternate;
+            color: rgb(59, 3, 3);
+        }
+        @keyframes aage{
+            from{padding-left: 50px;}
+            to {padding-left: 20px;}
+        }
+        .navigation{
+            width: 60%;
+            display: flex;
+            justify-content: space-around;
+            overflow: hidden;
+        }
+        .navigation a{
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-size: 17px;
+            color: black;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        .navigation a:first-child{
+            color: rgb(231, 98, 86);
+        }
+
+        .navigation a::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #f30889;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .navigation a:hover::before {
+            width: 100%;
+        }
+        main{
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            padding-top: 20px;
+        }
+
+        .vertical-navbar{
+            background-color: #e0ad8b;
+            width: 200px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            margin-right: 20px;
+        }
+        .vertical-navbar a{
+            display: block;
+            padding: 10px 20px;
+            color: rgb(0, 0, 0);
+            margin-top: 15px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-size: 17px;
+            color: black;
+            width: 100%;
+            text-align: center;
+        }
+        .vertical-navbar img{
+            margin-top: 20px;
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .vertical-navbar label{
+            display: block;
+            width: 80%;
+            background: #07e3df;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+            padding: 8px 0;
+            color: black;
+            font-weight: bold;
+        }
+        .vertical-navbar input[type="file"]{
+            display: none;
+        }
+
+        .id-2{
+            background-image: linear-gradient(to top,#fff,#c3f5ff);
+            width: 100%;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .id-2 h2{
+            color: chocolate;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+        @media (max-width:998px)
+        {
+            html{
+                font-size: 55%;
+            }
+            .navsection{
+                height: auto;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+            }
+            .logo{
+                width: 80%;
+                padding-left: 0;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            .navigation{
+                width: 100%;
+                justify-content: space-around;
+                padding: 10px 0;
+            }
+            main{
+                flex-direction: column;
+                align-items: center;
+                height: auto;
+                padding: 20px;
+            }
+            .vertical-navbar{
+                width: 80%;
+                flex-direction: row;
+                justify-content: space-around;
+                margin-right: 0;
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+            .vertical-navbar a{
+                width: auto;
+                margin-top: 0;
+                padding: 8px 15px;
+            }
+            .vertical-navbar img{
+                margin-top: 0;
+            }
+            .vertical-navbar label{
+                margin-top: 10px;
+                width: auto;
+                padding: 8px 15px;
+            }
+            .id-2{
+                width: 80%;
+            }
+            .id-2 h2{
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+       <header>
+        <section class="navsection">
+            <div class="logo">
+             <h1>Rent Manager</h1>
+            </div>
+            <nav class="navigation">
+                    <a href="#Home">Home</a>
+                    <a href="Index.html">Students</a>
+                    <a href="#Contact">Contact</a>
+            </nav>
+        </section>
+        <main>
+                <div class="vertical-navbar">
+                        <img src="img/1.1.jpg" id="profile-pic">
+                        <label for="input-file">Upload Image</label>
+                        <input type="file" accept="image/jpg, image/png" id="input-file">
+                        <a href="New_Profile.html">Profile</a>
+                            <a href="#a123">Rent</a>
+                            <a href="#aContact">Contact</a>
+                </div>
+                <div class="id-2">
+                    <h2>
+                        Welcome to Our Website
+                    </h2>
+                    </div>
+        </main>
+       </header>
+    <script>
+        let Profilepic = document.getElementById("profile-pic");
+        let inputFile = document.getElementById("input-file");
+        const localStorageKey = 'profileImage';
+
+        // Function to load the saved image from local storage
+        function loadSavedImage() {
+            const savedImage = localStorage.getItem(localStorageKey);
+            if (savedImage) {
+                Profilepic.src = savedImage;
+            }
+        }
+
+        // Load the saved image when the page loads
+        window.onload = loadSavedImage;
+
+        inputFile.onchange = function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    Profilepic.src = e.target.result;
+                    // Save the new image data to local storage
+                    localStorage.setItem(localStorageKey, e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>

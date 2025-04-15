@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login & Signup</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Login Form -->
+    <div id="loginForm" class="form active">
+      <h2>Login</h2>
+      <form id="loginFormElement">
+        <div id="loginMessage" class="messageDiv" style="display: none;"></div>
+        <input type="email" id="loginEmail" placeholder="Email" required />
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <button id="submitLogin" type="submit">Login</button>
+      </form>
+      <div class="toggle-link" onclick="showSignup()">Don't have an account? Sign Up</div>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" class="form">
+      <h2>Sign Up</h2>
+      <form id="signupFormElement">
+        <div id="signUpMessage" class="messageDiv" style="display: none;"></div>
+        <input type="text" id="Username" placeholder="Username" required />
+        <input type="email" id="Email" placeholder="Email" required />
+        <input type="password" id="Password" placeholder="Password" required />
+        <input type="password" id="ConfirmPassword" placeholder="Confirm Password" required />
+        <button id="submitSignUp" type="submit">Sign Up</button>
+      </form>
+      <div class="toggle-link" onclick="showLogin()">Already have an account? Login</div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+    } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDzfzvaquFokcKi80iBDJ2WvcSqi-rO2g0",
+      authDomain: "hostel-login-a211d.firebaseapp.com",
+      projectId: "hostel-login-a211d",
+      storageBucket: "hostel-login-a211d.appspot.com",
+      messagingSenderId: "490570402263",
+      appId: "1:490570402263:web:dadeed895488d1077c6392"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Toggle forms
+    window.showSignup = () => {
+      document.getElementById('loginForm').classList.remove('active');
+      document.getElementById('signupForm').classList.add('active');
+    };
+
+    window.showLogin = () => {
+      document.getElementById('signupForm').classList.remove('active');
+      document.getElementById('loginForm').classList.add('active');
+    };
+
+    // Sign Up
+    document.getElementById('signupFormElement').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('Email').value;
+      const username = document.getElementById('Username').value;
+      const password = document.getElementById('Password').value;
+      const confirmPassword = document.getElementById('ConfirmPassword').value;
+      const signUpMessage = document.getElementById('signUpMessage');
+
+      if (password !== confirmPassword) {
+        signUpMessage.style.display = 'block';
+        signUpMessage.style.color = 'orange';
+        signUpMessage.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+
+        // Save user profile to localStorage
+        const userProfile = {
+          name: username,
+          email: email,
+          phone: "",
+          password: password
+        };
+        localStorage.setItem(email, JSON.stringify(userProfile));
+
+        signUpMessage.style.display = 'block';
+        signUpMessage.style.color = 'green';
+        signUpMessage.textContent = 'Signup successful! Please log in.';
+
+        setTimeout(() => {
+          showLogin();
+          signUpMessage.style.display = 'none';
+        }, 1500);
+      } catch (error) {
+        signUpMessage.style.display = 'block';
+        signUpMessage.style.color = 'red';
+        signUpMessage.textContent = 'Signup failed: ' + error.message;
+      }
+    });
+
+    // Login
+    document.getElementById('loginFormElement').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const loginMessage = document.getElementById('loginMessage');
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+
+        const userProfile = localStorage.getItem(email);
+        if (!userProfile) {
+          loginMessage.style.display = 'block';
+          loginMessage.style.color = 'red';
+          loginMessage.textContent = 'User profile not found.';
+          return;
+        }
+
+        const sessionData = {
+          email: email,
+          loginTime: new Date().getTime() // current timestamp
+        };
+        localStorage.setItem("loggedInSession", JSON.stringify(sessionData));
+
+        loginMessage.style.display = 'block';
+        loginMessage.style.color = 'green';
+        loginMessage.textContent = 'Login successful! Redirecting...';
+
+        setTimeout(() => {
+          window.location.href = 'New_Profile.html';
+        }, 1000);
+      } catch (error) {
+        loginMessage.style.display = 'block';
+        loginMessage.style.color = 'red';
+        loginMessage.textContent = 'Login failed: ' + error.message;
+      }
+    });
+  </script>
+</body>
+</html>

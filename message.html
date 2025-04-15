@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Send Message to Student</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .message-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00796b;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #00796b;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #004d40;
+    }
+
+    .message {
+      margin-top: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+<div class="message-container">
+  <h2>Send Message</h2>
+  <div class="form-group">
+    <label for="studentName">To (Student Name)</label>
+    <input type="text" id="studentName" placeholder="Enter student name">
+  </div>
+  <div class="form-group">
+    <label for="subject">Subject</label>
+    <input type="text" id="subject" placeholder="Enter subject">
+  </div>
+  <div class="form-group">
+    <label for="messageBody">Message</label>
+    <textarea id="messageBody" placeholder="Enter your message here"></textarea>
+  </div>
+  <button onclick="sendMessage()">Send Message</button>
+  <div class="message" id="statusMessage"></div>
+</div>
+
+<script>
+  function sendMessage() {
+    const name = document.getElementById('studentName').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const body = document.getElementById('messageBody').value.trim();
+    const status = document.getElementById('statusMessage');
+
+    if (!name || !subject || !body) {
+      status.textContent = "All fields are required!";
+      status.style.color = "red";
+      return;
+    }
+
+    const studentKey = name.toLowerCase().replace(/\s+/g, '');  // Normalize student name
+    let studentData = JSON.parse(localStorage.getItem(studentKey));
+
+    if (!studentData) {
+      status.textContent = "Student not found!";
+      status.style.color = "red";
+      return;
+    }
+
+    const newMessage = {
+      subject,
+      body,
+      from: "Admin",
+      name,  // Add student name
+      timestamp: new Date().toLocaleString()
+    };
+
+    // Ensure messages array exists
+    if (!studentData.messages) {
+      studentData.messages = [];
+    }
+
+    studentData.messages.push(newMessage);
+    localStorage.setItem(studentKey, JSON.stringify(studentData));
+
+    status.textContent = "Message sent successfully!";
+    status.style.color = "green";
+
+    document.getElementById('studentName').value = '';
+    document.getElementById('subject').value = '';
+    document.getElementById('messageBody').value = '';
+  }
+</script>
+
+</body>
+</html>

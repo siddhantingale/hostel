@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Rent Payment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .payment-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 400px;
+      text-align: center;
+    }
+
+    .payment-box h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .amount {
+      background: #e6f0ff;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #0077ff;
+      margin-bottom: 20px;
+    }
+
+    .pay-btn {
+      padding: 12px 30px;
+      background-color: #0077ff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .pay-btn:hover {
+      background-color: #005dc1;
+    }
+
+    .success-msg {
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="payment-box">
+    <h2>Pay Your Rent</h2>
+
+    <div class="form-group">
+      <label for="studentName">Student Name</label>
+      <input type="text" id="studentName" placeholder="Enter your full name">
+    </div>
+
+    <div class="form-group">
+      <label for="month">Select Month</label>
+      <select id="month">
+        <option value="">-- Select Month --</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="payDate">Payment Date</label>
+      <input type="date" id="payDate">
+    </div>
+
+    <div class="amount">Amount to Pay: ₹1400</div>
+    <button class="pay-btn" onclick="makePayment()">Pay ₹1400</button>
+
+    <div class="success-msg" id="successMsg"></div>
+  </div>
+
+  <script>
+    function makePayment() {
+      const name = document.getElementById('studentName').value.trim();
+      const month = document.getElementById('month').value;
+      const payDate = document.getElementById('payDate').value;
+      const msg = document.getElementById('successMsg');
+
+      if (!name || !month || !payDate) {
+        alert('Please fill all fields before paying.');
+        return;
+      }
+
+      // Save to localStorage
+      const paymentData = {
+        student: name,
+        month: month,
+        date: payDate,
+        amount: 1400
+      };
+
+      let payments = JSON.parse(localStorage.getItem('studentPayments')) || [];
+      payments.push(paymentData);
+      localStorage.setItem('studentPayments', JSON.stringify(payments));
+
+      msg.textContent = `✅ Payment of ₹1400 for ${month} on ${payDate} successful!`;
+
+      // Clear fields
+      document.getElementById('studentName').value = '';
+      document.getElementById('month').value = '';
+      document.getElementById('payDate').value = '';
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+<!-- /*
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Rent Payment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .payment-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      text-align: center;
+    }
+
+    .payment-box h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .amount {
+      background: #e6f0ff;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #0077ff;
+      margin-bottom: 20px;
+    }
+
+    .pay-btn {
+      padding: 12px 30px;
+      background-color: #0077ff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .pay-btn:hover {
+      background-color: #005dc1;
+    }
+
+    .success-msg {
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="payment-box">
+    <h2>Pay Your Rent</h2>
+
+    <div class="form-group">
+      <label for="studentName">Student Name</label>
+      <input type="text" id="studentName" placeholder="Enter your full name">
+    </div>
+
+    <div class="form-group">
+      <label for="month">Select Month</label>
+      <select id="month">
+        <option value="">-- Select Month --</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="payDate">Payment Date</label>
+      <input type="date" id="payDate">
+    </div>
+
+    <div class="amount">Amount to Pay: ₹1400</div>
+    <button class="pay-btn" onclick="makePayment()">Pay ₹1400</button>
+
+    <div class="success-msg" id="successMsg"></div>
+  </div>
+
+  <script>
+    function makePayment() {
+      const name = document.getElementById('studentName').value.trim();
+      const month = document.getElementById('month').value;
+      const payDate = document.getElementById('payDate').value;
+      const msg = document.getElementById('successMsg');
+
+      if (!name || !month || !payDate) {
+        alert('Please fill all fields before paying.');
+        return;
+      }
+
+      const options = {
+        key: "rzp_test_YourTestKeyHere", // Replace with your Razorpay Test API key
+        amount: 140000, // Amount in paisa = ₹1400
+        currency: "INR",
+        name: "Student Nest",
+        description: `Rent for ${month}`,
+        handler: function (response) {
+          // Save to localStorage
+          const paymentData = {
+            student: name,
+            month: month,
+            date: payDate,
+            amount: 1400,
+            paymentId: response.razorpay_payment_id
+          };
+
+          let payments = JSON.parse(localStorage.getItem('studentPayments')) || [];
+          payments.push(paymentData);
+          localStorage.setItem('studentPayments', JSON.stringify(payments));
+
+          msg.textContent = `✅ Payment of ₹1400 for ${month} on ${payDate} successful! Payment ID: ${response.razorpay_payment_id}`;
+
+          // Clear form
+          document.getElementById('studentName').value = '';
+          document.getElementById('month').value = '';
+          document.getElementById('payDate').value = '';
+        },
+        prefill: {
+          name: name
+        },
+        theme: {
+          color: "#0077ff"
+        }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    }
+
+  </script>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+</body>
+
+</html>
+*/ -->

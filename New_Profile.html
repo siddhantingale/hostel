@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #e0f7fa, #f0ffff);
+            min-height: 100vh;
+        }
+        header {
+            width: 100%;
+        }
+        .navsection {
+            height: 15vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            background: rgba(0, 123, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+        .logo h1 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: moveText 2s infinite alternate;
+        }
+        @keyframes moveText {
+            from { transform: translateX(0); }
+            to { transform: translateX(10px); }
+        }
+        .navigation {
+            display: flex;
+            gap: 30px;
+        }
+        .navigation a {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #003366;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+        }
+        .navigation a::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #00bcd4;
+            bottom: -4px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        .navigation a:hover::before {
+            width: 100%;
+        }
+        main {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding: 40px;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .vertical-navbar {
+            background-color: #ffffff;
+            height: 580px;
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 30px 20px;
+            width: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 24px rgba(202, 0, 0, 0.1);
+            gap: 20px;
+            border: 1px solid rgba(16, 177, 226, 0.501);
+        }
+        .vertical-navbar img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .vertical-navbar label {
+            margin-top: 20px;
+            display: inline-block;
+            background-color: #e0f7fa;
+            padding: 10px 20px;
+            color: #00796b;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .vertical-navbar label:hover {
+            background-color: #b2ebf2;
+        }
+        .vertical-navbar input[type="file"] {
+            display: none;
+        }
+        .vertical-navbar a {
+            text-decoration: none;
+            width: auto;
+            background: linear-gradient(to right, #43cea2, #185a9d);
+            color: #f4f6f6;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 80px;
+            transition: background-color 0.3s ease;
+        }
+        .vertical-navbar a:hover {
+            background-color: #00796b;
+            color: #ffffff;
+        }
+        .id-2 {
+            width: 100%;
+            max-width: 500px;
+        }
+        .profile-card {
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 150, 136, 0.3);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        .profile-card h2 {
+            color: #004d40;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        .profile-field {
+            margin-bottom: 18px;
+        }
+        .profile-field label {
+            color: #00695c;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .profile-field input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background-color: rgba(0, 150, 136, 0.05);
+            color: #004d40;
+            font-size: 15px;
+            outline: none;
+        }
+        .profile-field input:disabled {
+            background-color: rgba(0, 0, 0, 0.05);
+            color: #888;
+        }
+        .password-wrapper {
+            position: relative;
+        }
+        .password-wrapper input {
+            padding-right: 40px;
+        }
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #00796b;
+            font-size: 18px;
+        }
+        .btn {
+            margin-top: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(to right, #43cea2, #185a9d);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: linear-gradient(to right, #11998e, #38ef7d);
+        }
+        @media (max-width: 768px) {
+            .navsection {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+            }
+            .navigation {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            main {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+            .vertical-navbar {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+            .id-2 {
+                width: 90%;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+<header>
+    <section class="navsection">
+        <div class="logo">
+            <h1>Profile</h1>
+        </div>
+        <nav class="navigation">
+            <a href="#">Home</a>
+            <a href="index_3.html">Students</a>
+            <a href="notification.html">Notification</a>
+        </nav>
+    </section>
+
+    <main>
+        <div class="vertical-navbar">
+            <img src="img/1.1.jpg" id="profile-pic">
+            <label for="input-file">Upload Image</label>
+            <input type="file" accept="image/jpg, image/png" id="input-file">
+            <a href="index_3.html">Students</a>
+            <a href="notification.html">Notification</a>
+            <!-- <a href="message.html">Message</a> -->
+        </div>
+
+        <div class="id-2">
+            <div class="profile-card">
+                <h2>Admin Profile</h2>
+                <div class="profile-field">
+                    <label for="adminName">Name</label>
+                    <input type="text" id="adminName">
+                </div>
+                <div class="profile-field">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail">
+                </div>
+                <div class="profile-field">
+                    <label for="adminPhone">Phone Number</label>
+                    <input type="tel" id="adminPhone">
+                </div>
+                <div class="profile-field">
+                    <label for="adminPassword">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="adminPassword">
+                        <span class="toggle-password" onclick="toggleVisibility('adminPassword', this)">👁️</span>
+                    </div>
+                </div>
+                <div class="profile-field">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirmPassword">
+                        <span class="toggle-password" onclick="toggleVisibility('confirmPassword', this)">👁️</span>
+                    </div>
+                </div>
+                <button class="btn" onclick="toggleEdit()">Edit Profile</button>
+            </div>
+        </div>
+    </main>
+</header>
+
+<script>
+    let Profilepic = document.getElementById("profile-pic");
+    let inputFile = document.getElementById("input-file");
+    const localStorageKey = 'profileImage';
+
+    function loadSavedImage() {
+        const savedImage = localStorage.getItem(localStorageKey);
+        if (savedImage) {
+            Profilepic.src = savedImage;
+        }
+    }
+
+    inputFile.onchange = function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                Profilepic.src = e.target.result;
+                localStorage.setItem(localStorageKey, e.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    const defaultAdminData = {
+        name: "Jane Smith",
+        email: "admin@hostel.com",
+        phone: "+91 9876543210",
+        password: "admin1234"
+    };
+
+    function loadProfile() {
+        const session = JSON.parse(localStorage.getItem("loggedInSession"));
+        if (!session || !session.email) {
+            alert("User not logged in.");
+            return;
+        }
+    
+        const userEmail = session.email;
+        const storedData = localStorage.getItem(userEmail);
+        
+        if (storedData) {
+            const userData = JSON.parse(storedData);
+            document.getElementById('adminName').value = userData.name;
+            document.getElementById('adminEmail').value = userData.email;
+            document.getElementById('adminPhone').value = userData.phone || '';
+            document.getElementById('adminPassword').value = userData.password;
+            document.getElementById('confirmPassword').value = userData.password;
+        } else {
+            alert("Profile data not found for the current user.");
+        }
+    }
+    
+    
+
+    let isEditable = false;
+
+function toggleEdit() {
+    const nameInput = document.getElementById('adminName');
+    const emailInput = document.getElementById('adminEmail');
+    const phoneInput = document.getElementById('adminPhone');
+    const passwordInput = document.getElementById('adminPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const button = document.querySelector('.btn');
+
+    if (!isEditable) {
+        // Enable editing
+        nameInput.disabled = false;
+        emailInput.disabled = false;
+        phoneInput.disabled = false;
+        passwordInput.disabled = false;
+        confirmPasswordInput.disabled = false;
+        button.textContent = "Save Profile";
+        isEditable = true;
+    } else {
+        // Save data
+        const session = JSON.parse(localStorage.getItem("loggedInSession"));
+        const userEmail = session.email;
+
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        const updatedData = {
+            name: nameInput.value,
+            email: emailInput.value,
+            phone: phoneInput.value,
+            password: passwordInput.value
+        };
+
+        localStorage.setItem(userEmail, JSON.stringify(updatedData));
+        alert("Profile updated successfully!");
+
+        // Disable editing
+        nameInput.disabled = true;
+        emailInput.disabled = true;
+        phoneInput.disabled = true;
+        passwordInput.disabled = true;
+        confirmPasswordInput.disabled = true;
+        button.textContent = "Edit Profile";
+        isEditable = false;
+    }
+}
+
+
+    function toggleVisibility(inputId, icon) {
+        const input = document.getElementById(inputId);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.textContent = "🙈";
+        } else {
+            input.type = "password";
+            icon.textContent = "👁️";
+        }
+    }
+
+    window.onload = loadSavedImage;
+    loadProfile();
+</script>
+</body>
+</html>
